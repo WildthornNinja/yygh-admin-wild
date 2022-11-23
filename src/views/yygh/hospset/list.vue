@@ -85,10 +85,10 @@ export default{
     }
   },
   created(){// 当页面加载时获取数据
-    this.fetchDat();//可以调用有参的fetchData()方法,因为JavaScript为弱类型语言
+    this.fetchData();//可以调用有参的fetchData()方法,因为JavaScript为弱类型语言
   },
   methods:{
-    fetchDat(page=1){//page= 1 默认参数
+    fetchData(page=1){//page= 1 默认参数
       hospsetApi.pageQuery(this.page,this.limit,this.searchObj)
       .then(response=>{
         //console.log("response",response);
