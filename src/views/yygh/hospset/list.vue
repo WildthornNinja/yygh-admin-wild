@@ -59,15 +59,15 @@
           </template>
     </el-table-column>
   </el-table>
-  <!-- 分页 -->
-  <el-pagination
-    :current-page="page"
-    :page-size="limit"
-    :total="total"
-    style="padding: 30px 0; text-align: center;"
-    layout="total, prev, pager, next, jumper"
-    @current-change="fetchData"
-    />
+    <!-- 分页 -->
+    <el-pagination
+      :current-page="page"
+      :page-size="limit"
+      :total="total"
+      style="padding: 30px 0; text-align: center;"
+      layout="total, prev, pager, next, jumper"
+      @current-change="fetchData"
+      />
 
   </div>
    
@@ -83,7 +83,7 @@ export default{
       list: null, // 数据列表
       total: 0, // 总记录数
       page: 1, // 页码
-      limit: 5, // 每页记录数
+      limit: 4, // 每页记录数
       searchObj: {}// 查询条件
     }
   },
@@ -92,16 +92,17 @@ export default{
   },
   methods:{
     fetchData(page=1){//page= 1 默认参数
+      this.page = page;
       //console.log("searchObj",this.searchObj);
       // 调用api层获取数据库中的数据
-      hospsetApi.pageQuery(this.page,this.limit,this.searchObj)
-      .then(response=>{
-        //console.log("response",response);
-        this.total=response.data.total;
-        this.list=response.data.records;
-        //设置加载图表状态为false,停止加载动画
-        this.listLoading=false;
-      })
+        hospsetApi.pageQuery(this.page,this.limit,this.searchObj)
+        .then(response=>{
+          //console.log("response",response);
+          this.total=response.data.total;
+          this.list=response.data.records;
+          //设置加载图表状态为false,停止加载动画
+          this.listLoading=false;
+        })
 
     },
 

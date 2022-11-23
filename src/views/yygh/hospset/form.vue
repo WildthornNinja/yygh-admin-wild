@@ -25,24 +25,37 @@
   </div>
 </template>
 <script>
-import hospset from '@/api/yygh/hospset';
+import hospsetApi from '@/api/yygh/hospset';
 export default{
   data(){
     return{
-      hospset: {},
+      hospset: {},//医院设置表单对象
       saveBtnDisabled: false // 保存按钮是否禁用,
     }
   },
   methods: {
+    //新增或者修改的保存
     saveOrUpdate() {
       this.saveBtnDisabled = true
-      this.saveData()
+      this.addHospSet();
     },
 
-    // 保存
-    saveData() {
-
-    }
+    // 保存医院设置
+    addHospSet() {
+      hospsetApi.addHospSet(this.hospset)
+      .then(response=>{
+         this.$message({
+            type: 'success',
+            message: '保存成功!'
+        })
+        this.$router.push({ path: '/yygh/hospset/list' });
+      }).catch(response=>{
+        this.$message({
+            type: 'error',
+            message: '保存失败'
+        })
+      })
+    },
 
   }
 }
