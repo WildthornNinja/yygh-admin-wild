@@ -16,5 +16,18 @@ export default {
             method: "post",
             data: searchObj, //用json方式传递
         })
+    },
+    /**
+     * 通过id删除医院设置信息
+     * @param {*} id 
+     * @returns 
+     */
+    removeById(id){
+        return request ({
+            url: `${api_name}/delete/${id}`,
+            method: "delete"
+        })
+
     }
+
 }

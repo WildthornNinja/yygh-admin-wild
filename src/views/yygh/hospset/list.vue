@@ -89,7 +89,8 @@ export default{
   },
   methods:{
     fetchData(page=1){//page= 1 默认参数
-      console.log("searchObj",this.searchObj);
+      //console.log("searchObj",this.searchObj);
+      // 调用api层获取数据库中的数据
       hospsetApi.pageQuery(this.page,this.limit,this.searchObj)
       .then(response=>{
         //console.log("response",response);
@@ -107,6 +108,33 @@ export default{
 
 
 
+
+
+    /**
+     * 通过id删除医院设置信息
+     */
+    removeDataById(id){
+      this.$confirm('此操作将永久删除该数据, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          hospsetApi.removeById(id)
+          .then(response=>{
+            this.$message({
+            type: 'success',
+            message: '删除成功!'
+          });
+          this.fetchData();
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+
+    },
     /**
      * 清空查询表单数据
      */
