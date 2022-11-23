@@ -35,11 +35,10 @@ export default{
     }
   },
   created(){
-    //数据回显
+    //判断是否有参数进行数据回显
     //$route.param.id 获取路由传递的参数
-    //
     if(this.$route.params&&this.$route.params.id){
-      console.log(this.$route.params.id);
+      //console.log(this.$route.params.id);
       this.id=this.$route.params.id;
       //调用api,通过id查询数据进行数据回显
       hospsetApi.getHospSetById(this.id)
@@ -52,7 +51,16 @@ export default{
     //新增或者修改的保存
     saveOrUpdate() {
       this.saveBtnDisabled = true
-      this.addHospSet();
+      //判断 具体是新增操作 or 修改操作
+      //通过hospset对象的id属性判断
+      if(this.hospset.id){
+        //修改
+        this.updateHospSet();
+      }else{
+        //新增
+        this.addHospSet();
+      }
+      
     },
 
     // 保存医院设置
@@ -68,6 +76,22 @@ export default{
         this.$message({
             type: 'error',
             message: '保存失败'
+        })
+      })
+    },
+    //修改医院设置
+    updateHospSet() {
+      hospsetApi.updateHospSet(this.hospset)
+      .then(response=>{
+         this.$message({
+            type: 'success',
+            message: '修改成功!'
+        })
+        this.$router.push({ path: '/yygh/hospset/list' });
+      }).catch(response=>{
+        this.$message({
+            type: 'error',
+            message: '修改失败'
         })
       })
     },

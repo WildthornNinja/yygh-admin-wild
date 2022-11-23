@@ -41,11 +41,27 @@ export default {
             data: hospitalSet
         })
     },
-
+    /**
+     * 数据回显 通过id查询设置信息
+     * @param {*} id 
+     * @returns 
+     */
     getHospSetById(id){
         return request({
             url: `${api_name}/getById/${id}`,
             method: "get"
+        })
+    },
+    /**
+     * 修改医院设置
+     * @param {*} hospitalSet 
+     * @returns 
+     */
+    updateHospSet(hospitalSet){
+        return request({
+            url: `${api_name}/update`,
+            method:"put",
+            data: hospitalSet
         })
     }
 
