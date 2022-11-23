@@ -7,6 +7,7 @@
           element-loading-text="数据加载中"
           border
           fit
+          :row-class-name="tableRowColor"
           highlight-current-row>
 
       <el-table-column
@@ -73,7 +74,40 @@ export default{
         this.listLoading=false;
       })
 
-    }
+    },
+
+
+
+
+
+
+
+
+
+
+    /**
+     * 表格行颜色
+     */
+     tableRowColor({row, rowIndex}){
+      if (rowIndex === 1) {
+          return 'one-row';
+        } else if (rowIndex === 3) {
+          return 'two-row';
+        }
+        return 'three-row';
+      }
+     }
   }
-}
 </script>
+<style>
+  .el-table .one-row {
+    background: #DFEEFD;
+  }
+
+  .el-table .two-row {
+    background: #FAF0D5;
+  }
+  .el-table .three-row {
+    background: #f0f9eb;
+  }
+</style>
