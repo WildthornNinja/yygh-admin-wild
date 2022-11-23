@@ -30,7 +30,22 @@ export default{
   data(){
     return{
       hospset: {},//医院设置表单对象
-      saveBtnDisabled: false // 保存按钮是否禁用,
+      saveBtnDisabled: false, // 保存按钮是否禁用,
+      id:"", //数据回显所需id
+    }
+  },
+  created(){
+    //数据回显
+    //$route.param.id 获取路由传递的参数
+    //
+    if(this.$route.params&&this.$route.params.id){
+      console.log(this.$route.params.id);
+      this.id=this.$route.params.id;
+      //调用api,通过id查询数据进行数据回显
+      hospsetApi.getHospSetById(this.id)
+      .then(response=>{
+        this.hospset = response.data.hospitalSet;
+      })
     }
   },
   methods: {

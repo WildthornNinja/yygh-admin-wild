@@ -40,7 +40,17 @@ export default {
             method:"post",
             data: hospitalSet
         })
+    },
+
+    getHospSetById(id){
+        return request({
+            url: `${api_name}/getById/${id}`,
+            method: "get"
+        })
     }
+
+
+
 
 
 }
