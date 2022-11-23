@@ -63,8 +63,21 @@ export default {
             method:"put",
             data: hospitalSet
         })
-    }
+    },
+    /**
+     * 
+     * 批量删除医院设置
+     * @param {*} idList 
+     * @returns 
+     */
+    bachRemove(idList){
+        return request({
+            url: `${api_name}/bachRemove`,
+            method: "delete",
+            data: idList
+        })
 
+    }
 
 
 

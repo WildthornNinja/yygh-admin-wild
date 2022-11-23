@@ -17,7 +17,10 @@
           <el-button type="success" icon="el-icon-edit" circle  @click="toFormPage()">新增</el-button>
       </el-form>
       <!-- 跳转新增页面按钮 -->
-      
+      <!-- 复选框工具条 -->
+      <div>
+        <el-button type="danger" size="mini" @click="removeRows()">批量删除</el-button>
+      </div>
       <el-table
           v-loading="listLoading"
           :data="list"
@@ -25,8 +28,10 @@
           border
           fit
           :row-class-name="tableRowColor"
-          highlight-current-row>
-
+          highlight-current-row 
+          @selection-change="handleSelectionChange"
+          >
+      <el-table-column type="selection" width="55"/>
       <el-table-column
             label="序号"
             width="70"
@@ -84,7 +89,8 @@ export default{
       total: 0, // 总记录数
       page: 1, // 页码
       limit: 4, // 每页记录数
-      searchObj: {}// 查询条件
+      searchObj: {},// 查询条件
+      multipleSelection: [] // 批量选择中选择的记录列表
     }
   },
   created(){// 当页面加载时获取数据
@@ -105,6 +111,41 @@ export default{
         })
 
     },
+    /**
+     * 批量删除
+     */
+     removeRows(){
+      this.$confirm("此操作将永久删除该数据, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(()=>{
+        //1.创建参数结果集 idList
+        let idList=[];
+        //2.遍历集合multipleSelection，取出被选中的行数据
+        for(let i=0;i<this.multipleSelection.length;i++){
+          let hospitalSet = this.multipleSelection[i];
+          let hospSetId = hospitalSet.id;
+          //3.取出id 存入参数结果集
+          idList.push(hospSetId);
+        };
+        console.log("idList",idList);
+        //4.调用api接口执行批量删除
+        hospsetApi.bachRemove(idList)
+        .then(response=>{
+          this.$message({
+            type: "success",
+            message:"删除成功!"
+          });
+          this.fetchData();
+        })
+      }).catch(()=>{
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        })
+     },
 
 
 
@@ -113,7 +154,15 @@ export default{
 
 
 
-
+    /**
+     * 当表格复选框选项发生变化的时候触发
+     */
+    handleSelectionChange(selection) {
+        //console.log(selection);
+        //selection为一个数组，数组元素为所选中的每行数据
+        this.multipleSelection = selection;
+        //console.log("multipleSelection",this.multipleSelection);
+    },
     /**
      * 通过id删除医院设置信息
      */
