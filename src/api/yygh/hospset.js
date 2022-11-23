@@ -28,6 +28,19 @@ export default {
             method: "delete"
         })
 
+    },
+    /**
+     * 添加医院设置
+     * @param {*} hospitalSet 
+     * @returns 
+     */
+    addHospSet(hospitalSet){
+        return request({
+            url: `${api_name}/add`,
+            method:"post",
+            data: hospitalSet
+        })
     }
+
 
 }

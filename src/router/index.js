@@ -70,7 +70,7 @@ export const constantRoutes = [
         meta: { title: '医院设置列表', icon: 'table' }
       },
       {
-        path: '/create',
+        path: 'create',
         name: '添加医院设置',
         component: () => import('@/views/yygh/hospset/form'),
         meta: { title: '添加医院设置', icon: 'tree' }

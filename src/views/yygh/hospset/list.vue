@@ -14,7 +14,10 @@
 
           <el-button type="primary" icon="el-icon-search" @click="fetchData()">查询</el-button>
           <el-button type="default" @click="resetData()">清空</el-button>
+          <el-button type="success" icon="el-icon-edit" circle  @click="toFormPage()">新增</el-button>
       </el-form>
+      <!-- 跳转新增页面按钮 -->
+      
       <el-table
           v-loading="listLoading"
           :data="list"
@@ -135,6 +138,13 @@ export default{
         });
 
     },
+    /**
+     * 跳转至医院设置form表单页面
+     */
+     toFormPage(){
+      //使用内置路由对象router实现页面跳转
+      this.$router.push({ path: "/yygh/hospset/create" });
+     },
     /**
      * 清空查询表单数据
      */
