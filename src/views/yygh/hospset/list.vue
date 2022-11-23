@@ -1,6 +1,20 @@
 <template>
   <div class="app-container">
-      医院设置列表
+      <h2>医院设置列表</h2>
+
+       <!--查询表单-->
+      <el-form :inline="true" class="demo-form-inline">
+          <el-form-item>
+              <el-input v-model="searchObj.hosname" placeholder="医院名称"/>
+          </el-form-item>
+
+          <el-form-item>
+              <el-input v-model="searchObj.hoscode" placeholder="医院编号"/>
+          </el-form-item>
+
+          <el-button type="primary" icon="el-icon-search" @click="fetchData()">查询</el-button>
+          <el-button type="default" @click="resetData()">清空</el-button>
+      </el-form>
       <el-table
           v-loading="listLoading"
           :data="list"
@@ -42,6 +56,16 @@
           </template>
     </el-table-column>
   </el-table>
+  <!-- 分页 -->
+  <el-pagination
+    :current-page="page"
+    :page-size="limit"
+    :total="total"
+    style="padding: 30px 0; text-align: center;"
+    layout="total, prev, pager, next, jumper"
+    @current-change="fetchData"
+    />
+
   </div>
    
 </template>
@@ -82,8 +106,13 @@ export default{
 
 
 
-
-
+    /**
+     * 清空查询表单数据
+     */
+    resetData() {
+      this.searchObj = {}
+      this.fetchData()
+    },
 
     /**
      * 表格行颜色
