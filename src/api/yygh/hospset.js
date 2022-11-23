@@ -13,8 +13,8 @@ export default {
     pageQuery(page,limit,searchObj){
         return request({
             url: `${api_name}/${page}/${limit}`,
-            mothod: "post",
-            data: searchObj, ////用json方式传递
+            method: "post",
+            data: searchObj, //用json方式传递
         })
     }
 }

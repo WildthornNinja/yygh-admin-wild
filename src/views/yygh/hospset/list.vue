@@ -89,6 +89,7 @@ export default{
   },
   methods:{
     fetchData(page=1){//page= 1 默认参数
+      console.log("searchObj",this.searchObj);
       hospsetApi.pageQuery(this.page,this.limit,this.searchObj)
       .then(response=>{
         //console.log("response",response);
@@ -110,8 +111,8 @@ export default{
      * 清空查询表单数据
      */
     resetData() {
-      this.searchObj = {}
-      this.fetchData()
+      this.searchObj = {};
+      this.fetchData();
     },
 
     /**
