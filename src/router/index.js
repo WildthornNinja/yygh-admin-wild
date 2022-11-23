@@ -43,6 +43,7 @@ export const constantRoutes = [
     hidden: true
   },
 
+  //首页
   {
     path: '/',
     component: Layout,
@@ -51,31 +52,32 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: 'Dashboard', icon: 'dashboard' }
+      meta: { title: '预约挂号平台后台管理系统', icon: 'dashboard' }
     }]
   },
-
+  // 医院设置管理
   {
-    path: '/example',
+    path: '/yygh/hospset',
     component: Layout,
-    redirect: '/example/table',
-    name: 'Example',
-    meta: { title: 'Example', icon: 'el-icon-s-help' },
+    redirect: '/yygh/hospset/list',
+    name: 'HospSet',
+    meta: { title: '医院设置列表', icon: 'el-icon-s-help' },
     children: [
       {
-        path: 'table',
-        name: 'Table',
-        component: () => import('@/views/table/index'),
-        meta: { title: 'Table', icon: 'table' }
+        path: 'list',
+        name: '医院设置列表',
+        component: () => import('@/views/yygh/hospset/list'),
+        meta: { title: '医院设置列表', icon: 'table' }
       },
       {
-        path: 'tree',
-        name: 'Tree',
-        component: () => import('@/views/tree/index'),
-        meta: { title: 'Tree', icon: 'tree' }
+        path: '/create',
+        name: '添加医院设置',
+        component: () => import('@/views/yygh/hospset/form'),
+        meta: { title: '添加医院设置', icon: 'tree' }
       }
     ]
   },
+  
 
   {
     path: '/form',

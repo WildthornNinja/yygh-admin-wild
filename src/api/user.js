@@ -26,11 +26,14 @@ export function getInfo(token) {
     params: { token }
   })
 }
-
+/**
+ * 
+ * @returns 退出登录
+ */
 
 export function logout() {
   return request({
-    url: '/vue-admin-template/user/logout',
+    url: `${api_name}/logout`,
     method: 'post'
   })
 }
