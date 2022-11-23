@@ -55,12 +55,16 @@
         </template>
     </el-table-column>
 
-      <el-table-column label="操作" width="200" align="center">
+      <el-table-column label="操作" width="280" align="center">
           <template slot-scope="scope">
               <router-link :to="'/yygh/hospset/edit/'+scope.row.id">
                   <el-button type="primary" size="mini" icon="el-icon-edit">修改</el-button>
-              </router-link>
+              </router-link>&nbsp;
               <el-button type="danger" size="mini" icon="el-icon-delete" @click="removeDataById(scope.row.id)">删除</el-button>
+              <el-button v-if="scope.row.status==1" type="primary" size="mini" 
+                    icon="el-icon-delete" @click="lockHostSet(scope.row.id,0)">锁定</el-button>
+              <el-button v-if="scope.row.status==0" type="danger" size="mini" 
+                    icon="el-icon-delete" @click="lockHostSet(scope.row.id,1)">取消锁定</el-button>
           </template>
     </el-table-column>
   </el-table>
@@ -146,12 +150,17 @@ export default{
           });
         })
      },
-
-
-
-
-
-
+     /**
+      * 对医院设置进行锁定和取消锁定
+      */
+    lockHostSet(id,status) {
+      console.log("id,status",id,status);
+        hospsetApi.lockHospSet(id,status)
+        .then(response => {
+         //刷新
+         this.fetchData()
+      })
+    },
 
 
     /**

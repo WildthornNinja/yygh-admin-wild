@@ -77,7 +77,21 @@ export default {
             data: idList
         })
 
+    },
+    /**
+     * 对医院设置进行
+     * 锁定和取消锁定
+     * @param {*} id 
+     * @param {*} status 
+     * @returns 
+     */
+    lockHospSet(id,status){
+        return request({
+            url:`${api_name}/lock/${id}/${status}`,
+            method:"put"
+        })
     }
+
 
 
 
