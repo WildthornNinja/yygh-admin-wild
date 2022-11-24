@@ -157,6 +157,10 @@ export default{
       console.log("id,status",id,status);
         hospsetApi.lockHospSet(id,status)
         .then(response => {
+          this.$message({
+              type:"success",
+              message:"操作成功"
+            });
          //刷新
          this.fetchData()
       })
