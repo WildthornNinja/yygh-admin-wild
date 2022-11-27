@@ -1,5 +1,15 @@
 <template>
     <div  class="app-container">
+        <div class="el-toolbar">
+            <div class="el-toolbar-body" style="justify-content: flex-start;">
+                <el-button type="text" @click="exportData"><i class="fa fa-plus"/> 导出</el-button>
+                
+            </div>
+            
+        </div>
+
+        
+
         <!-- 
             1.row-key="id" 每行数据关键字，支持子节点数据异步加载
             2.lazy 懒加载
@@ -7,6 +17,7 @@
             4.:load="load" 加载数据函数
          -->
     <el-table
+        v-loading="listLoading"
         :data="list"
         style="width: 100%"
         row-key="id"
@@ -46,6 +57,7 @@ import dictApi from '@/api/yygh/dict';
 export default{
     data(){
         return {
+            listLoading: true, // 是否显示loading信息
             list:[] //数据字典列表数组
         }
     },
@@ -59,6 +71,7 @@ export default{
             dictApi.findChildData(id)
             .then(response=>{
                 this.list = response.data.dictList;
+                this.listLoading = false;
             });
         },
         //树形表格组件 内置load加载数据函数 load(row, treeNode, resolve){} 
@@ -77,7 +90,14 @@ export default{
                 //resolve 懒加载方法 局部更新数据
                 resolve(response.data.dictList);
             })
-        }
+        },
+        /**
+         * 导出数据
+         */
+         exportData(){
+            //内置window对象
+            window.open(`${process.env.VUE_APP_BASE_API}admin/cmn/dict/exportData`);
+         }
 
     }
 }

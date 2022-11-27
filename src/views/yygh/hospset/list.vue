@@ -172,7 +172,7 @@ export default{
      */
     handleSelectionChange(selection) {
         //console.log(selection);
-        //selection为一个数组，数组元素为所选中的每行数据
+        //selection为一个集合，集合元素为所选中的每行数据
         this.multipleSelection = selection;
         //console.log("multipleSelection",this.multipleSelection);
     },
