@@ -76,12 +76,18 @@ export const constantRoutes = [
         meta: { title: '添加医院设置', icon: 'table' }
       },
       {
-        path: 'edit/:id',
+        path: 'edit/:id',// 携带参树 :id 占位符
         name: '编辑医院设置',
         component: () => import('@/views/yygh/hospset/form'),
         meta: { title: '编辑医院设置', noCache: true },
         hidden: true
-      }
+      },
+      {
+        path: 'hospital/list',
+        name: '医院列表',
+        component: () =>import('@/views/yygh/hosp/list'),
+        meta: { title: '医院列表', icon: 'table' }
+      },
     ]
   },
   // 数据字典管理
