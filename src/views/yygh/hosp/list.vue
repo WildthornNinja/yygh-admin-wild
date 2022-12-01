@@ -114,19 +114,35 @@ export default {
                 this.listLoading=false;//取消转圈加载
             })
         },
-
-
-
-
-
-
-
+        //点击某个省，显示里面市（联动）,省市二级联动查询
+        provinceChanged(){
+             //先清空
+             //清空二级市信息，
+             this.cityList=[];
+             //清空查询条件
+             this.searchObj.cityCode = '';
+             //调用方法，根据省id，查询下面子节点
+             //根据省id查询市集合
+             console.log("provinceCode",this.searchObj.provinceCode);
+             dictApi.findChildData(this.searchObj.provinceCode)
+             .then(response=>{
+                this.cityList=response.data.dictList;
+             })
+        },
 
         //分页，页码变化,切换每页记录数
         changeSize(){
             this.limit = size;
             this.fetchData(1);
-        }
+        },
+        //清空方法
+        resetData(){
+            this.searchObj={
+                provinceCode:'',
+                cityCode:''
+            }
+            this.fetchData();
+        },
     }
 
 }
