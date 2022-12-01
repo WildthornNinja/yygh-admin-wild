@@ -63,7 +63,35 @@
     </div>
   </template>
 <script>
+import hospApi from '@/api/yygh/hosp';
+
 export default {
-    
+    data() {
+        return {
+            //医院信息初始化
+            hospital: {
+                param:{},
+            },
+            bookingRule: {} //预约规则信息
+        }
+    },
+    created(){
+        //获取路由id
+        let id = this.$route.params.id;
+        //调用方法，根据id查询医院详情
+        this.getShowData(id);
+    },
+    methods:{
+        getShowData(id){
+            hospApi.getHospById(id).then(response=>{
+                this.hospital=response.data.hospital;
+                this.bookingRule=response.data.bookingRule;
+            })
+        },
+        //返回医院列表
+        back() {
+            this.$router.push({ path:'/yygh/hospset/hospital/list'})
+        }
+    }
 }
 </script>
