@@ -129,6 +129,17 @@ export default {
                 this.cityList=response.data.dictList;
              })
         },
+        updateStatus(id,status){
+            hospApi.updateStatus(id,status)
+            .then(response=>{
+                this.$message({
+                    type:"success",
+                    message:"操作成功!"
+                });
+                //重新查询数据，刷新页面
+                this.fetchData();
+            })
+        },
 
         //分页，页码变化,切换每页记录数
         changeSize(){
