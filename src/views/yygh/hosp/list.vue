@@ -71,7 +71,63 @@
     </div>
 </template>
 <script>
+import hospApi from '@/api/yygh/hosp'
+import dictApi from '@/api/yygh/dict'
+
 export default {
-    
+    data(){
+        return{
+            listLoading: true, // 数据是否正在加载
+            list: null, // 医院列表数据集合
+            total: 0, // 数据库中的总记录数
+            page: 1, // 默认页码
+            limit: 10, // 每页记录数
+            searchObj: {
+                provinceCode:'',//下拉列表属性需要初始化
+                cityCode:''
+            }, // 查询表单对象
+            provinceList: [], //所有省集合
+            cityList: []   //所有市集合
+        }
+    },
+    created(){
+        //加载省份信息【联机查询第一级】
+        this.getProvinceList();
+        //初始化查询查询列表
+        this.fetchData();
+    },
+    methods:{
+        //加载省份数据
+        getProvinceList(){
+            dictApi.findByDictCode("Province")
+            .then(response=>{
+                this.provinceList=response.data.list;
+            })
+        },
+        fetchData(page=1){
+            this.page=page;
+            //查询医院列表
+            hospApi.hospPageInfo(this.page,this.limit,this.searchObj)
+            .then(response=>{
+                this.list = response.data.pageModel.content;
+                this.total = response.data.pageModel.totalElements;
+                this.listLoading=false;//取消转圈加载
+            })
+        },
+
+
+
+
+
+
+
+
+        //分页，页码变化,切换每页记录数
+        changeSize(){
+            this.limit = size;
+            this.fetchData(1);
+        }
+    }
+
 }
 </script>
