@@ -76,7 +76,7 @@ export const constantRoutes = [
         meta: { title: '添加医院设置', icon: 'table' }
       },
       {
-        path: 'edit/:id',// 携带参树 :id 占位符
+        path: 'edit/:id',// 携带参数 :id 占位符
         name: '编辑医院设置',
         component: () => import('@/views/yygh/hospset/form'),
         meta: { title: '编辑医院设置', noCache: true },
@@ -87,6 +87,13 @@ export const constantRoutes = [
         name: '医院列表',
         component: () =>import('@/views/yygh/hosp/list'),
         meta: { title: '医院列表', icon: 'table' }
+      },
+      {
+        path: 'hospital/show/:id',// 携带参数 :id 占位符
+        name: '查看',
+        component: () => import('@/views/yygh/hosp/show'),
+        meta: { title: '查看', noCache: true },
+        hidden: true
       },
     ]
   },

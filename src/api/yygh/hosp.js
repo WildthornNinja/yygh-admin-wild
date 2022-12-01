@@ -17,5 +17,12 @@ export default{
           url: `${api_name}/updateStatus/${id}/${status}`,
           method: 'get',
         })
-      },
+    },
+     //查看医院详情
+    getHospById(id) {
+        return request ({
+          url: `${api_name}/show/${id}`,
+          method: 'get'
+        })
+    },
 }
